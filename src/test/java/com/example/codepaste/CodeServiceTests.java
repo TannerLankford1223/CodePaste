@@ -61,7 +61,7 @@ public class CodeServiceTests {
 
     @DisplayName("Get code snippet that exists in data source")
     @Test
-    public void testGetCodeEntity() {
+    public void returnCodeSnippet() {
         snippetRepo.save(mockSnippet1);
         when(snippetRepo.findById(mockUuid1)).thenReturn(Optional.of(mockSnippet1));
 
@@ -73,7 +73,7 @@ public class CodeServiceTests {
 
     @DisplayName("Code snippet's number of remaining views decrement on each view if restricted")
     @Test
-    public void testDecrementsViewsGetCodeSnippet() {
+    public void decrementSnippetViews() {
         snippetRepo.save(mockSnippet1);
         when(snippetRepo.findById(mockUuid1)).thenReturn(Optional.of(mockSnippet1));
 
@@ -86,7 +86,7 @@ public class CodeServiceTests {
 
     @DisplayName("Code snippet's views won't decrement if views are not restricted")
     @Test
-    public void testDoesntDecrementViewsGetCodeSnippet() {
+    public void doesntDecrementSnippetViews() {
         snippetRepo.save(mockSnippet3);
         when(snippetRepo.findById(mockUuid3)).thenReturn(Optional.of(mockSnippet3));
 
@@ -101,7 +101,7 @@ public class CodeServiceTests {
 
     @DisplayName("Code snippet's time will decrement if the snippet is time restricted")
     @Test
-    public void testDecrementsTimeGetCodeSnippet() {
+    public void decrementSnippetTime() {
         UUID mockUuid4 = UUID.fromString("c6a8669e-ee95-4c42-9ef6-4a9b61380164");
         CodeSnippet mockSnippet4 = new CodeSnippet("public interface CodeService {}", 100, 0);
         mockSnippet4.setId(mockUuid4);
@@ -116,7 +116,7 @@ public class CodeServiceTests {
 
     @DisplayName("Code snippet's time doesn't decrement if it is not time restricted")
     @Test
-    public void testDoesNotDecrementTImeGetCodeSnippet() {
+    public void doesntDecrementSnippetTime() {
         long originalTime = mockSnippet3.getTimeRemaining();
         snippetRepo.save(mockSnippet3);
         when (snippetRepo.findById(mockUuid3)).thenReturn(Optional.of(mockSnippet3));
@@ -128,7 +128,7 @@ public class CodeServiceTests {
 
     @DisplayName("Throws response status error if no more views remain")
     @Test
-    public void testNoMoreViewsRemainGetCodeSnippet() {
+    public void noMoreViewsRemain() {
         snippetRepo.save(mockSnippet2);
         when(snippetRepo.findById(mockUuid2)).thenReturn(Optional.of(mockSnippet2));
 
@@ -141,7 +141,7 @@ public class CodeServiceTests {
 
     @DisplayName("Try to retrieve code snippet that does not exist in data source")
     @Test
-    public void testGetNonExistentSnippetGetCodeSnippet() {
+    public void getNonExistentSnippet() {
         when(snippetRepo.findById(mockUuid1)).thenReturn(Optional.empty());
         assertThrows(ResponseStatusException.class, () -> {
             codeService.getCodeSnippet(mockUuid1);
@@ -150,7 +150,7 @@ public class CodeServiceTests {
 
     @DisplayName("Insert new Code into data source")
     @Test
-    public void testInsertCode() {
+    public void insertCode() {
         when(snippetRepo.save(mockSnippet1)).thenReturn(mockSnippet1);
 
         UUID uuid = codeService.insertCode(mockSnippet1);
@@ -161,7 +161,7 @@ public class CodeServiceTests {
 
     @DisplayName("Returns a list of all code snippets from the data source")
     @Test
-    public void testFindAll() {
+    public void findAllSnippets() {
         saveAll();
 
         when(snippetRepo.findAll()).thenReturn(List.of(mockSnippet1, mockSnippet2, mockSnippet3));
@@ -176,7 +176,7 @@ public class CodeServiceTests {
 
     @DisplayName("Returns an empty list of code snippets from the data source")
     @Test
-    public void testReturnEmptyListFindAll() {
+    public void returnEmptyList() {
         when(snippetRepo.findAll()).thenReturn(List.of());
 
         List<CodeSnippet> snippets = codeService.findAll();
@@ -186,7 +186,7 @@ public class CodeServiceTests {
 
     @DisplayName("Returns a list of code snippets that aren't view restricted in descending order of upload time")
     @Test
-    public void testGetLatestUploads() {
+    public void getLatestUploads() {
         UUID mockUuid4 = UUID.fromString("c6a8669e-ee95-4c42-9ef6-4a9b61380164");
         CodeSnippet mockSnippet4 = new CodeSnippet("public class CodeSnippet {}", 0, 0);
         mockSnippet4.setId(mockUuid4);
@@ -213,7 +213,7 @@ public class CodeServiceTests {
 
     @DisplayName("Returns an empty list of code snippets if all snippets are view restricted")
     @Test
-    public void testReturnEmptyListGetLatestUploads() {
+    public void returnEmptyListOfLatestUpdates() {
         snippetRepo.save(mockSnippet1);
         snippetRepo.save(mockSnippet2);
 
@@ -226,7 +226,7 @@ public class CodeServiceTests {
 
     @DisplayName("Deletes an existent code snippet from the data source")
     @Test
-    public void testDeleteById() {
+    public void deleteById() {
         saveAll();
         when (snippetRepo.findAll()).thenReturn(List.of(mockSnippet2, mockSnippet3));
 
@@ -239,7 +239,7 @@ public class CodeServiceTests {
 
     @DisplayName("Does not delete a non existent code snippet from the data source")
     @Test
-    public void testDeleteNonExistentSnippetDeleteById() {
+    public void deleteNonExistentSnippet() {
         UUID fakeUuid = UUID.fromString("c6a8669e-ee95-4c42-9ef6-4a9b61380164");
         saveAll();
 
