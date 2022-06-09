@@ -50,6 +50,9 @@ public class CodeSnippet {
         this.code = code;
         this.time = time;
         this.views = views;
+
+        viewRestriction = views != 0;
+        timeRestriction = time != 0;
     }
 
     public CodeSnippet() {
@@ -64,6 +67,10 @@ public class CodeSnippet {
         return date.format(formatter);
     }
 
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
     public boolean isViewRestriction() {
         return viewRestriction;
     }
@@ -72,11 +79,11 @@ public class CodeSnippet {
         return timeRestriction;
     }
 
-    public long getTime() {
+    public long getTimeRemaining() {
         return time;
     }
 
-    public void setTime(long time) {
+    public void setTimeRemaining(long time) {
         if (time <= 0) {
             timeRestriction = false;
             time = 0;
@@ -119,6 +126,10 @@ public class CodeSnippet {
 
     public UUID getId() {
         return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public boolean isEnabled() {

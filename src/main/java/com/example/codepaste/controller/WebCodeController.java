@@ -24,7 +24,7 @@ public class WebCodeController {
 
     @GetMapping("/{id}")
     public String getCode(@PathVariable UUID id, Model model) {
-        CodeSnippet userCode = codeService.getCodeEntity(id);
+        CodeSnippet userCode = codeService.getCodeSnippet(id);
         model.addAttribute("code", userCode);
 
         return "code";

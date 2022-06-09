@@ -22,7 +22,7 @@ public class ApiCodeController {
 
     @GetMapping("/{id}")
     public CodeSnippet getCode(@PathVariable UUID id) {
-        return codeService.getCodeEntity(id);
+        return codeService.getCodeSnippet(id);
     }
 
     @GetMapping("/latest")

@@ -23,7 +23,7 @@ public class CodeServiceImpl implements CodeService {
     }
 
     @Override
-    public CodeSnippet getCodeEntity(UUID id) {
+    public CodeSnippet getCodeSnippet(UUID id) {
         Optional<CodeSnippet> codeOpt = dsGateway.findById(id);
         if (codeOpt.isPresent()) {
             CodeSnippet code = codeOpt.get();
@@ -40,8 +40,9 @@ public class CodeServiceImpl implements CodeService {
     }
 
     @Override
-    public void insertCode(CodeSnippet code) {
+    public UUID insertCode(CodeSnippet code) {
         dsGateway.insert(code);
+        return code.getId();
     }
 
     @Override

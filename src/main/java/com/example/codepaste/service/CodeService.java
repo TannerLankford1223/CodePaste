@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.UUID;
 
 public interface CodeService {
-    CodeSnippet getCodeEntity(UUID id);
+    CodeSnippet getCodeSnippet(UUID id);
 
-    void insertCode(CodeSnippet code);
+    UUID insertCode(CodeSnippet code);
 
     List<CodeSnippet> findAll();
 
