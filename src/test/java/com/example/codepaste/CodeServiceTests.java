@@ -134,18 +134,14 @@ public class CodeServiceTests {
 
         // Decrement remaining views to zero
         codeService.getCodeSnippet(mockUuid2);
-        assertThrows(ResponseStatusException.class, () -> {
-            codeService.getCodeSnippet(mockUuid2);
-        });
+        assertThrows(ResponseStatusException.class, () -> codeService.getCodeSnippet(mockUuid2));
     }
 
     @DisplayName("Try to retrieve code snippet that does not exist in data source")
     @Test
     public void getNonExistentSnippet() {
         when(snippetRepo.findById(mockUuid1)).thenReturn(Optional.empty());
-        assertThrows(ResponseStatusException.class, () -> {
-            codeService.getCodeSnippet(mockUuid1);
-        });
+        assertThrows(ResponseStatusException.class, () -> codeService.getCodeSnippet(mockUuid1));
     }
 
     @DisplayName("Insert new Code into data source")
