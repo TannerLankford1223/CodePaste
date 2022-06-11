@@ -31,11 +31,11 @@ public class CodeSnippet {
 
     @JsonProperty("time")
     @Column
-    private long time;
+    private int timeRemaining;
 
     @JsonProperty("views")
     @Column
-    private long views;
+    private int views;
 
     @JsonIgnore
     private boolean viewRestriction = true;
@@ -46,13 +46,13 @@ public class CodeSnippet {
     @JsonIgnore
     private boolean enabled = true;
 
-    public CodeSnippet(String code, long time, long views) {
+    public CodeSnippet(String code, int timeRemaining, int views) {
         this.code = code;
-        this.time = time;
+        this.timeRemaining = timeRemaining;
         this.views = views;
 
         viewRestriction = views != 0;
-        timeRestriction = time != 0;
+        timeRestriction = timeRemaining != 0;
     }
 
     public CodeSnippet() {
@@ -80,24 +80,24 @@ public class CodeSnippet {
     }
 
     public long getTimeRemaining() {
-        return time;
+        return timeRemaining;
     }
 
-    public void setTimeRemaining(long time) {
-        if (time <= 0) {
+    public void setTimeRemaining(int timeRemaining) {
+        if (timeRemaining <= 0) {
             timeRestriction = false;
-            time = 0;
+            timeRemaining = 0;
         }
-        this.time = time;
+        this.timeRemaining = timeRemaining;
     }
 
     public void updateTime() {
         if (timeRestriction && enabled) {
             long timePassed = Duration.between(date.toLocalTime(), LocalTime.now()).toSeconds();
-            this.time -= timePassed;
-            if (time < 0) {
+            this.timeRemaining -= timePassed;
+            if (timeRemaining < 0) {
                 enabled = false;
-                time = 0;
+                timeRemaining = 0;
             }
         }
     }
@@ -106,7 +106,7 @@ public class CodeSnippet {
         return views;
     }
 
-    public void setViews(long views) {
+    public void setViews(int views) {
         if (views <= 0) {
             viewRestriction = false;
             views = 0;
@@ -135,5 +135,14 @@ public class CodeSnippet {
     public boolean isEnabled() {
         return enabled;
     }
+
+//    @Override
+//    public String toString() {
+//        return "CodeSnippet{" +
+//                "code='" + code + '\'' +
+//                ", time=" + timeRemaining +
+//                ", views=" + views +
+//                '}';
+//    }
 }
 
