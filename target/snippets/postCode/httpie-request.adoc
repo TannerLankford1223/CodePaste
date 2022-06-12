@@ -1,0 +1,6 @@
+[source,bash]
+----
+$ echo '{"code":"This is a test!", "time":55, "views":10}' | http POST 'http://localhost:8080/api/code/new' \
+    'Content-Type:application/json;charset=UTF-8' \
+    'Accept:application/json'
+----
