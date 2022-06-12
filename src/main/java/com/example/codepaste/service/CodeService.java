@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.UUID;
 
 public interface CodeService {
-    CodeSnippet getCodeSnippet(UUID id);
+    CodeSnippet getCode(UUID id);
 
     ResponseDTO insertCode(CodeSnippet code);
 
-    List<CodeSnippet> findAll();
+    List<CodeSnippet> findAllCode();
 
     List<CodeSnippet> getLatestUploads();
 

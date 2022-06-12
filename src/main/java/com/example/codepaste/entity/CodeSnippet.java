@@ -1,7 +1,5 @@
 package com.example.codepaste.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -16,7 +14,7 @@ import java.util.UUID;
 @Table(name = "snippets")
 public class CodeSnippet {
 
-    @JsonIgnore
+//    @JsonIgnore
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
@@ -29,21 +27,18 @@ public class CodeSnippet {
     @Column
     private LocalDateTime date;
 
-    @JsonProperty("time")
+//    @JsonProperty("time")
     @Column
     private int timeRemaining;
 
-    @JsonProperty("views")
+//    @JsonProperty("views")
     @Column
     private int views;
 
-    @JsonIgnore
     private boolean viewRestriction = true;
 
-    @JsonIgnore
     private boolean timeRestriction = true;
 
-    @JsonIgnore
     private boolean enabled = true;
 
     public CodeSnippet(String code, int timeRemaining, int views) {

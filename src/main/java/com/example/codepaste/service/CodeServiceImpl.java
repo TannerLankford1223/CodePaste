@@ -1,6 +1,6 @@
 package com.example.codepaste.service;
 
-import com.example.codepaste.dao.SnippetDSGateway;
+import com.example.codepaste.dao.SnippetRepository;
 import com.example.codepaste.dto.ResponseDTO;
 import com.example.codepaste.entity.CodeSnippet;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,20 +16,21 @@ import java.util.UUID;
 
 @Service
 public class CodeServiceImpl implements CodeService {
-    private final SnippetDSGateway dsGateway;
+    private final SnippetRepository snippetRepo;
 
     @Autowired
-    public CodeServiceImpl(SnippetDSGateway dsGateway) {
-        this.dsGateway = dsGateway;
+    public CodeServiceImpl(SnippetRepository snippetRepo) {
+        this.snippetRepo = snippetRepo;
     }
 
     @Override
-    public CodeSnippet getCodeSnippet(UUID id) {
-        Optional<CodeSnippet> codeOpt = dsGateway.findById(id);
+    public CodeSnippet getCode(UUID id) {
+        Optional<CodeSnippet> codeOpt = snippetRepo.findById(id);
         if (codeOpt.isPresent()) {
             CodeSnippet code = codeOpt.get();
             code.updateTime();
             if (!code.isEnabled()) {
+                snippetRepo.deleteById(code.getId());
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND);
             }
             code.decrementViews();
@@ -42,23 +43,23 @@ public class CodeServiceImpl implements CodeService {
 
     @Override
     public ResponseDTO insertCode(CodeSnippet request) {
-        CodeSnippet response = dsGateway.insert(request);
+        CodeSnippet response = snippetRepo.save(request);
         return new ResponseDTO(response.getId(), response.getCode());
     }
 
     @Override
-    public List<CodeSnippet> findAll() {
-        return dsGateway.findAll();
+    public List<CodeSnippet> findAllCode() {
+        return snippetRepo.findAll();
     }
 
     @Override
     public void deleteById(UUID id) {
-        dsGateway.deleteById(id);
+        snippetRepo.deleteById(id);
     }
 
     @Override
     public List<CodeSnippet> getLatestUploads() {
-        List<CodeSnippet> codeRepo = dsGateway.findMostRecent();
+        List<CodeSnippet> codeRepo = snippetRepo.findAllByOrderByDateDesc();
         List<CodeSnippet> uploads = new ArrayList<>();
 
         int i = 0;
