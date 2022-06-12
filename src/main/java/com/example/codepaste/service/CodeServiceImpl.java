@@ -1,6 +1,7 @@
 package com.example.codepaste.service;
 
 import com.example.codepaste.dao.SnippetDSGateway;
+import com.example.codepaste.dto.ResponseDTO;
 import com.example.codepaste.entity.CodeSnippet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,9 +41,9 @@ public class CodeServiceImpl implements CodeService {
     }
 
     @Override
-    public UUID insertCode(CodeSnippet code) {
-        dsGateway.insert(code);
-        return code.getId();
+    public ResponseDTO insertCode(CodeSnippet request) {
+        CodeSnippet response = dsGateway.insert(request);
+        return new ResponseDTO(response.getId(), response.getCode());
     }
 
     @Override

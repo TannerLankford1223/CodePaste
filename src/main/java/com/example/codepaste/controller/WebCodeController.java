@@ -31,7 +31,7 @@ public class WebCodeController {
     }
 
     @GetMapping("/new")
-    public String createCode() {
+    public String postCode() {
         return "newCode";
     }
 

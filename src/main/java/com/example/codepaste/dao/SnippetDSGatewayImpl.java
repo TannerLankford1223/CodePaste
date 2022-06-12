@@ -19,8 +19,9 @@ public class SnippetDSGatewayImpl implements SnippetDSGateway {
     }
 
     @Override
-    public void insert(CodeSnippet code) {
-        snippetRepo.save(code);
+    public CodeSnippet insert(CodeSnippet code) {
+        return snippetRepo.save(code);
+
     }
 
     @Override

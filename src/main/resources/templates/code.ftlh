@@ -16,7 +16,7 @@
     </#if>
 
     <#if (code.isTimeRestriction())>
-        <span id="time_restriction">${code.getTime()} seconds remaining</span>
+        <span id="time_restriction">${code.getTimeRemaining()} seconds remaining</span>
     </#if>
 
     <div id="code_container">

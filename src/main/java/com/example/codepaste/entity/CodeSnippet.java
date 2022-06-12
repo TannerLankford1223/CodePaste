@@ -136,13 +136,13 @@ public class CodeSnippet {
         return enabled;
     }
 
-//    @Override
-//    public String toString() {
-//        return "CodeSnippet{" +
-//                "code='" + code + '\'' +
-//                ", time=" + timeRemaining +
-//                ", views=" + views +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "CodeSnippet{" +
+                "code='" + code + '\'' +
+                ", time=" + timeRemaining +
+                ", views=" + views +
+                '}';
+    }
 }
 

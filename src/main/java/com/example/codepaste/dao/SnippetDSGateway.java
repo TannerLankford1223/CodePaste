@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface SnippetDSGateway {
-    void insert(CodeSnippet code);
+    CodeSnippet insert(CodeSnippet code);
     Optional<CodeSnippet> findById(UUID id);
     List<CodeSnippet> findAll();
     void deleteById(UUID id);
