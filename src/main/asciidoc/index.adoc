@@ -1,0 +1,21 @@
+= CodePaste API
+
+These are example calls to an api running at http://localhost:8080
+
+.getCode Request
+include::../../../target/snippets/getCode/http-request.adoc[]
+
+.getCode Response
+include::../../../target/snippets/getCode/http-response.adoc[]
+
+.postCode Request
+include::../../../target/snippets/postCode/http-request.adoc[]
+
+.postCode Response
+include::../../../target/snippets/postCode/http-response.adoc[]
+
+.getLatestUploads Request
+include::../../../target/snippets/getLatestUploads/http-request.adoc[]
+
+.getLatestUploads Response
+include::../../../target/snippets/getLatestUploads/http-response.adoc[]
