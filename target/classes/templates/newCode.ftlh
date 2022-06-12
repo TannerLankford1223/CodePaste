@@ -1,7 +1,20 @@
 <html lang="en">
 <head>
     <title>Create</title>
-    <link rel="stylesheet" href="/css/code.css"/>
+    <style>
+        #restrictions {
+            margin-top: 20px;
+            color: green;
+        }
+        #send_snippet {
+            height: 25px;
+            width: 60px;
+            margin-top: 10px;
+            background: lightblue;
+            border-style: none;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
     <form action="/code/new" method="get">
@@ -30,7 +43,7 @@
             xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
             xhr.send(json);
 
-            if (xhr.status == 200) {
+            if (xhr.status === 200) {
                 alert("Success!");
             }
         }
