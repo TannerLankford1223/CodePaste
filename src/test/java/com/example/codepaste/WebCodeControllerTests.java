@@ -41,7 +41,7 @@ public class WebCodeControllerTests {
 
     @Test
     public void getCode() throws Exception {
-        UUID mockUuid = UUID.fromString("c81d4e2e-bcf2-11e6-869b-7df92533d2db");
+        UUID mockUuid = UUID.randomUUID();
         CodeSnippet mockSnippet = new CodeSnippet("public static main void(String[] args) {}", 100, 10);
         mockSnippet.setId(mockUuid);
         mockSnippet.setDate(LocalDateTime.now());
@@ -66,7 +66,7 @@ public class WebCodeControllerTests {
 
     @Test
     public void getNonExistentCode() throws Exception {
-        UUID fakeUuid = UUID.fromString("237e9877-e79b-12d4-a765-321741963000");
+        UUID fakeUuid = UUID.randomUUID();
         when(codeService.getCodeSnippet(fakeUuid))
                 .thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND));
 
