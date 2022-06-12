@@ -3,6 +3,7 @@ package com.example.codepaste.dao;
 import com.example.codepaste.entity.CodeSnippet;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -18,6 +19,7 @@ public class SnippetDSGatewayImpl implements SnippetDSGateway {
         this.snippetRepo = snippetRepo;
     }
 
+    @Transactional
     @Override
     public CodeSnippet insert(CodeSnippet code) {
         return snippetRepo.save(code);
@@ -34,10 +36,12 @@ public class SnippetDSGatewayImpl implements SnippetDSGateway {
         return snippetRepo.findAll();
     }
 
+    @Transactional
     @Override
     public void deleteById(UUID id) {
         snippetRepo.deleteById(id);
     }
+
 
     @Override
     public List<CodeSnippet> findMostRecent() {
