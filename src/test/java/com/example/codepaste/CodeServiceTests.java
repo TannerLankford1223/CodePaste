@@ -1,7 +1,5 @@
 package com.example.codepaste;
 
-import com.example.codepaste.dao.SnippetDSGateway;
-import com.example.codepaste.dao.SnippetDSGatewayImpl;
 import com.example.codepaste.dao.SnippetRepository;
 import com.example.codepaste.dto.ResponseDTO;
 import com.example.codepaste.entity.CodeSnippet;
@@ -42,8 +40,7 @@ public class CodeServiceTests {
     @BeforeEach
     void initUseCase() {
         // Implement gateway between service and persistence layers
-        SnippetDSGateway dsGateway = new SnippetDSGatewayImpl(snippetRepo);
-        codeService = new CodeServiceImpl(dsGateway);
+        codeService = new CodeServiceImpl(snippetRepo);
 
         mockUuid1 = UUID.fromString("c81d4e2e-bcf2-11e6-869b-7df92533d2db");
         mockSnippet1 = new CodeSnippet("public static main void(String[] args) {}", 100, 10);
@@ -68,7 +65,7 @@ public class CodeServiceTests {
         when(snippetRepo.save(mockSnippet1)).thenReturn(mockSnippet1);
 
         snippetRepo.save(mockSnippet1);
-        CodeSnippet snippet = codeService.getCodeSnippet(mockUuid1);
+        CodeSnippet snippet = codeService.getCode(mockUuid1);
         assertEquals(snippet.getId(), mockSnippet1.getId());
         assertEquals(snippet.getCode(), mockSnippet1.getCode());
     }
@@ -82,8 +79,8 @@ public class CodeServiceTests {
         snippetRepo.save(mockSnippet1);
 
         // View twice to decrement snippet's views and time remaining values
-        codeService.getCodeSnippet(mockUuid1);
-        CodeSnippet snippet = codeService.getCodeSnippet(mockUuid1);
+        codeService.getCode(mockUuid1);
+        CodeSnippet snippet = codeService.getCode(mockUuid1);
 
         assertEquals(8, snippet.getViews());
     }
@@ -97,10 +94,10 @@ public class CodeServiceTests {
         snippetRepo.save(mockSnippet3);
 
         for (int i = 3; i > 0; i--) {
-            codeService.getCodeSnippet(mockUuid3);
+            codeService.getCode(mockUuid3);
         }
 
-        CodeSnippet snippet = codeService.getCodeSnippet(mockUuid3);
+        CodeSnippet snippet = codeService.getCode(mockUuid3);
         assertEquals(0, snippet.getViews());
     }
 
@@ -116,7 +113,7 @@ public class CodeServiceTests {
         when(snippetRepo.save(mockSnippet4)).thenReturn(mockSnippet4);
 
         snippetRepo.save(mockSnippet4);
-        CodeSnippet snippet = codeService.getCodeSnippet(mockUuid3);
+        CodeSnippet snippet = codeService.getCode(mockUuid3);
         assertTrue(snippet.getTimeRemaining() < 100);
     }
 
@@ -128,7 +125,7 @@ public class CodeServiceTests {
         when(snippetRepo.findById(mockUuid3)).thenReturn(Optional.of(mockSnippet3));
 
         snippetRepo.save(mockSnippet3);
-        CodeSnippet snippet = codeService.getCodeSnippet(mockUuid3);
+        CodeSnippet snippet = codeService.getCode(mockUuid3);
         assertEquals(originalTime, snippet.getTimeRemaining());
     }
 
@@ -141,15 +138,15 @@ public class CodeServiceTests {
         snippetRepo.save(mockSnippet2);
 
         // Decrement remaining views to zero
-        codeService.getCodeSnippet(mockUuid2);
-        assertThrows(ResponseStatusException.class, () -> codeService.getCodeSnippet(mockUuid2));
+        codeService.getCode(mockUuid2);
+        assertThrows(ResponseStatusException.class, () -> codeService.getCode(mockUuid2));
     }
 
     @DisplayName("Try to retrieve code snippet that does not exist in data source")
     @Test
     public void getNonExistentSnippet() {
         when(snippetRepo.findById(mockUuid1)).thenReturn(Optional.empty());
-        assertThrows(ResponseStatusException.class, () -> codeService.getCodeSnippet(mockUuid1));
+        assertThrows(ResponseStatusException.class, () -> codeService.getCode(mockUuid1));
     }
 
     @DisplayName("Insert new Code into data source")
@@ -171,7 +168,7 @@ public class CodeServiceTests {
 
         when(snippetRepo.findAll()).thenReturn(List.of(mockSnippet1, mockSnippet2, mockSnippet3));
 
-        List<CodeSnippet> snippets = codeService.findAll();
+        List<CodeSnippet> snippets = codeService.findAllCode();
 
         assertEquals(3, snippets.size());
         assertTrue(snippets.contains(mockSnippet1));
@@ -184,7 +181,7 @@ public class CodeServiceTests {
     public void returnEmptyList() {
         when(snippetRepo.findAll()).thenReturn(List.of());
 
-        List<CodeSnippet> snippets = codeService.findAll();
+        List<CodeSnippet> snippets = codeService.findAllCode();
 
         assertEquals(0, snippets.size());
     }
@@ -236,7 +233,7 @@ public class CodeServiceTests {
         when(snippetRepo.findAll()).thenReturn(List.of(mockSnippet2, mockSnippet3));
 
         codeService.deleteById(mockUuid1);
-        List<CodeSnippet> snippets = codeService.findAll();
+        List<CodeSnippet> snippets = codeService.findAllCode();
 
         assertEquals(2, snippets.size());
         assertFalse(snippets.contains(mockSnippet1));
@@ -251,7 +248,7 @@ public class CodeServiceTests {
         when(snippetRepo.findAll()).thenReturn(List.of(mockSnippet1, mockSnippet2, mockSnippet3));
 
         codeService.deleteById(fakeUuid);
-        List<CodeSnippet> snippets = codeService.findAll();
+        List<CodeSnippet> snippets = codeService.findAllCode();
 
         assertEquals(3, snippets.size());
     }

@@ -50,7 +50,7 @@ public class ApiCodeControllerTests {
 
         String code = mockSnippet.getCode();
         String date = mockSnippet.getDate();
-        when(codeService.getCodeSnippet(mockUuid)).thenReturn(mockSnippet);
+        when(codeService.getCode(mockUuid)).thenReturn(mockSnippet);
 
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/code/{id}", mockSnippet.getId()))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -62,7 +62,7 @@ public class ApiCodeControllerTests {
     @Test
     public void getNonExistentCode() throws Exception {
         UUID fakeUuid = UUID.fromString("237e9877-e79b-12d4-a765-321741963000");
-        when(codeService.getCodeSnippet(fakeUuid))
+        when(codeService.getCode(fakeUuid))
                 .thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/code/{id}", fakeUuid))
@@ -111,31 +111,5 @@ public class ApiCodeControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()").value(mockSnippets.size()));
 
-    }
-
-    @Test
-    public void onlyReturnsNonRestrictedSnippets() throws Exception {
-        UUID mockUuid1 = UUID.fromString("c81d4e2e-bcf2-11e6-869b-7df92533d2db");
-        CodeSnippet mockSnippet1 = new CodeSnippet("public static main void(String[] args) {}", 0, 0);
-        mockSnippet1.setId(mockUuid1);
-        mockSnippet1.setDate(LocalDateTime.now());
-
-        UUID mockUuid2 = UUID.fromString("237e9877-e79b-12d4-a765-321741963000");
-        CodeSnippet mockSnippet2 = new CodeSnippet("{System.out.println(\"Hello, World\")}", 0, 5);
-        mockSnippet2.setId(mockUuid2);
-        mockSnippet2.setDate(LocalDateTime.now().minusHours(3));
-
-        UUID mockUuid3 = UUID.fromString("c6a8669e-ee95-4c42-9ef6-4a9b61380164");
-        CodeSnippet mockSnippet3 = new CodeSnippet("public interface CodeService {}", 100, 0);
-        mockSnippet3.setId(mockUuid3);
-        mockSnippet3.setDate(LocalDateTime.now().plusDays(2));
-
-        List<CodeSnippet> mockSnippets = List.of(mockSnippet2, mockSnippet1, mockSnippet3);
-
-        when(codeService.getLatestUploads()).thenReturn(List.of(mockSnippet1));
-
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/code/latest"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.size()").value(1));
     }
 }
