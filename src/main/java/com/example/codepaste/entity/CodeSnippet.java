@@ -1,7 +1,7 @@
 package com.example.codepaste.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.Duration;
@@ -23,15 +23,13 @@ public class CodeSnippet {
     @Column
     private String code;
 
-    @UpdateTimestamp
+    @CreationTimestamp
     @Column
     private LocalDateTime date;
 
-//    @JsonProperty("time")
     @Column
     private int timeRemaining;
 
-//    @JsonProperty("views")
     @Column
     private int views;
 
