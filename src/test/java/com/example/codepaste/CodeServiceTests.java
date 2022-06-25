@@ -1,6 +1,6 @@
 package com.example.codepaste;
 
-import com.example.codepaste.dao.SnippetRepository;
+import com.example.codepaste.persistence.SnippetRepository;
 import com.example.codepaste.dto.ResponseDTO;
 import com.example.codepaste.entity.CodeSnippet;
 import com.example.codepaste.service.CodeService;
@@ -253,7 +253,7 @@ public class CodeServiceTests {
         assertEquals(3, snippets.size());
     }
 
-    // Utility function to reduce repetetive code
+    // Utility function to reduce repetitive code
     void saveAll() {
         snippetRepo.save(mockSnippet1);
         snippetRepo.save(mockSnippet2);

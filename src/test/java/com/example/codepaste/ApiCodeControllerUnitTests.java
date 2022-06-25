@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ActiveProfiles("test")
 @WebMvcTest(ApiCodeController.class)
-public class ApiCodeControllerTests {
+public class ApiCodeControllerUnitTests {
 
     @Autowired
     private MockMvc mockMvc;

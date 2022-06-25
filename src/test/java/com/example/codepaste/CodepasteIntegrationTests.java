@@ -1,6 +1,6 @@
 package com.example.codepaste;
 
-import com.example.codepaste.dao.SnippetRepository;
+import com.example.codepaste.persistence.SnippetRepository;
 import com.example.codepaste.dto.RequestDTO;
 import com.example.codepaste.entity.CodeSnippet;
 import org.junit.Rule;
