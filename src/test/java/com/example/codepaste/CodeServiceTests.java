@@ -1,8 +1,8 @@
 package com.example.codepaste;
 
-import com.example.codepaste.persistence.SnippetRepository;
 import com.example.codepaste.dto.ResponseDTO;
 import com.example.codepaste.entity.CodeSnippet;
+import com.example.codepaste.persistence.SnippetRepository;
 import com.example.codepaste.service.CodeService;
 import com.example.codepaste.service.CodeServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
@@ -23,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
 public class CodeServiceTests {
 
