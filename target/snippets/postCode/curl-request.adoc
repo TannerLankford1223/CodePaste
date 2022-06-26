@@ -1,7 +1,0 @@
-[source,bash]
-----
-$ curl 'http://localhost:8080/api/code/new' -i -X POST \
-    -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'Accept: application/json' \
-    -d '{"code":"This is a test!", "time":55, "views":10}'
-----

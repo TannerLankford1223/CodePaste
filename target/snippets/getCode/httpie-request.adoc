@@ -1,4 +1,0 @@
-[source,bash]
-----
-$ http GET 'http://localhost:8080/api/code/3e64e518-74bd-4654-98ca-a32b5c5c9134'
-----

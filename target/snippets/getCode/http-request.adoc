@@ -1,6 +1,0 @@
-[source,http,options="nowrap"]
-----
-GET /api/code/3e64e518-74bd-4654-98ca-a32b5c5c9134 HTTP/1.1
-Host: localhost:8080
-
-----

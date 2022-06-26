@@ -1,4 +1,0 @@
-[source,options="nowrap"]
-----
-[{"id":"98eecbbd-7ee0-4dcb-b01c-4f4b34b7e39c","code":"public class CodePaste {}","date":"2022/06/12 13:45:33","timeRemaining":0,"views":0,"viewRestriction":false,"timeRestriction":false,"enabled":true},{"id":"4b4b40b2-a12e-419d-91ec-0c911c218fb6","code":"public static void main(String[] args) {}","date":"2022/06/12 13:45:33","timeRemaining":0,"views":0,"viewRestriction":false,"timeRestriction":false,"enabled":true},{"id":"d7e2c6d6-d07a-46c8-9477-d9b62f140b95","code":"{Hello, World!}","date":"2022/06/12 13:45:33","timeRemaining":0,"views":0,"viewRestriction":false,"timeRestriction":false,"enabled":true}]
-----

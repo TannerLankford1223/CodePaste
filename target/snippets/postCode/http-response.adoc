@@ -1,8 +1,0 @@
-[source,http,options="nowrap"]
-----
-HTTP/1.1 200 OK
-Content-Type: application/json
-Content-Length: 70
-
-{"id":"0436f45a-2308-4dd2-9f7d-28771280ec43","code":"This is a test!"}
-----
