@@ -4,6 +4,71 @@ Code sharing platform for collaborating amongst teammates.
 This is similar to PasteBin. However, CodePaste provides an
 API interface designed to be accessible locally.
 
+== Installation and Getting Started
+
+. Clone to local repo
+. Install necessary dependencies
+
+----
+./mvnw install
+----
+[start=3]
+. Build project and create Jar file
+
+----
+./mvnw clean package
+----
+
+=== Running Application Locally
+Project can be started using
+
+----
+./mvnw spring-boot:start
+----
+
+And can be stopped with
+
+----
+./mvnw spring-boot:stop
+----
+
+=== Running Application With Docker
+
+First ensure that you have Docker installed. See the following link for details
+
+* https://docs.docker.com/get-docker/
+
+Then create and start the containers using Docker Compose
+
+----
+docker-compose up
+----
+
+The container can be stopped with
+
+----
+docker-compose down
+----
+
+=== Testing
+
+The application can be tested locally by running
+
+----
+./mvnw test
+----
+
+And with Docker, using the test config file
+
+----
+docker-compose -f docker-compose.test.yml up
+----
+
+NOTE: There is a bug when testing with Docker due to the use of TestContainers in the integration tests.
+As of now, tests are only able to be ran locally. I am currently working to resolve this issue.
+
+
+
 == Code Snippets
 You can specify if code snippets are meant to be restricted by setting the
 number of views or time(in seconds) remaining. After either the views or
