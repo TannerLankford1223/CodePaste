@@ -1,6 +1,6 @@
 package com.example.codepaste.service;
 
-import com.example.codepaste.dao.SnippetRepository;
+import com.example.codepaste.persistence.SnippetRepository;
 import com.example.codepaste.dto.ResponseDTO;
 import com.example.codepaste.entity.CodeSnippet;
 import org.springframework.beans.factory.annotation.Autowired;

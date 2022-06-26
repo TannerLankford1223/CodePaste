@@ -1,4 +1,4 @@
-package com.example.codepaste.dao;
+package com.example.codepaste.persistence;
 
 import com.example.codepaste.entity.CodeSnippet;
 import org.springframework.data.jpa.repository.JpaRepository;
