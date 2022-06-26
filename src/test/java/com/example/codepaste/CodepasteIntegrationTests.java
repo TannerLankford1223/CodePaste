@@ -114,11 +114,7 @@ public class CodepasteIntegrationTests {
                 .andExpect(content().contentType("text/html;charset=UTF-8"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("code"))
-                .andExpect(model().attribute("code",
-                        allOf(
-                                hasProperty("id", is(newSnippet.getId())),
-                                hasProperty("code", is(newSnippet.getCode()))
-                        )));
+                .andExpect(model().attribute("userCode", hasProperty("code", is(newSnippet.getCode()))));
     }
 
     @Test

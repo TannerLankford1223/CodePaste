@@ -55,11 +55,7 @@ public class WebCodeControllerUnitTests {
                 .andExpect(content().contentType("text/html;charset=UTF-8"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("code"))
-                .andExpect(model().attribute("code",
-                        allOf(
-                                hasProperty("id", is(mockUuid)),
-                                hasProperty("code", is(mockSnippet.getCode()))
-                        )));
+                .andExpect(model().attribute("userCode", hasProperty("code", is(mockSnippet.getCode()))));
     }
 
     @Test
