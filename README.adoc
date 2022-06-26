@@ -51,35 +51,75 @@ image:src/main/resources/images/latestUploads.png[]
 == API Interface
 These are example calls to an api running at http://localhost:8080
 
-.getCode Request
+=== getCode Request
 * Accepts a UUID path variable
-include::target/snippets/getCode/http-request.adoc[]
 
-.getCode Response
+----
+GET /api/code/2608f2f3-cfb6-40ae-95bd-a2757bc90c25 HTTP/1.1
+Host: localhost:8080
+----
+=== getCode Response
 * Returns the code snippet associated with the provided UUID id,
 if any are found
-include::target/snippets/getCode/http-response.adoc[]
 
-.postCode Request
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 190
+
+{"id":"2608f2f3-cfb6-40ae-95bd-a2757bc90c25","code":"This is a test!","date":"2022/06/26 00:06:48",
+"timeRemaining":0,"views":34,"viewRestriction":true,"timeRestriction":false,"enabled":true}
+----
+=== postCode Request
 * Request body accepts a RequestDTO that consists of
 ** (String) Code -> String value of the code uploaded
 ** (Integer) TimeRemaining -> Seconds remaining
 ** (Integer) Views -> Number of views remaining
 
-include::target/snippets/postCode/http-request.adoc[]
+----
+POST /api/code/new HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Accept: application/json
+Content-Length: 49
+Host: localhost:8080
 
-.postCode Response
+{"code":"This is a test!", "time":55, "views":10}
+----
+
+=== postCode Response
 * Returns a ResponseDTO that consists of
 ** (UUID) ID
 ** (String) Code -> String value of the code uploaded
 
-include::target/snippets/postCode/http-response.adoc[]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 70
 
-.getLatestUploads Request
-include::target/snippets/getLatestUploads/http-request.adoc[]
+{"id":"0436f45a-2308-4dd2-9f7d-28771280ec43","code":"This is a test!"}
+----
 
-.getLatestUploads Response
+=== getLatestUploads Request
+
+----
+GET /api/code/latest HTTP/1.1
+Host: localhost:8080
+----
+
+=== getLatestUploads Response
 * Returns a list of the ten most recently uploaded code snippets, in descending order
 * List will only contain code snippets that do not have time or view restrictions
 
-include::target/snippets/getLatestUploads/http-response.adoc[]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 610
+
+[{"id":"98eecbbd-7ee0-4dcb-b01c-4f4b34b7e39c","code":"public class CodePaste {}","date":"2022/06/12 13:45:33",
+"timeRemaining":0,"views":0,"viewRestriction":false,"timeRestriction":false,"enabled":true},
+{"id":"4b4b40b2-a12e-419d-91ec-0c911c218fb6","code":"public static void main(String[] args) {}",
+"date":"2022/06/12 13:45:33","timeRemaining":0,"views":0,"viewRestriction":false,
+"timeRestriction":false,"enabled":true},{"id":"d7e2c6d6-d07a-46c8-9477-d9b62f140b95","code":"{Hello, World!}",
+"date":"2022/06/12 13:45:33","timeRemaining":0,"views":0,"viewRestriction":false,
+"timeRestriction":false,"enabled":true}]
+----
